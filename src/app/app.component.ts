@@ -9,6 +9,5 @@ import { AuthService } from './user/auth.service';
 
 export class AppComponent {
   constructor( public authService: AuthService, ) {
-    
   }
 }

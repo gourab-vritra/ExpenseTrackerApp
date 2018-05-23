@@ -20,7 +20,7 @@ export  class AuthGuard implements CanActivate {
             return true;
         }
 
-        this.toastr.info("Please login to access this page.")
+        this.toastr.info('Please login to access this page.')
         this.router.navigate(['/login']);
         return false;
     }

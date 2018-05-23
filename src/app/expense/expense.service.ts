@@ -25,13 +25,13 @@ export class ExpenseService {
         headers.append('Authorization', `${this.jwtToken}`);
         let options = new RequestOptions({ headers: headers });
                                       //CHANGE IN DEVELOPMENT MODE   !!!!!!!!!!!!!!!
-        // return this.http.post(`http://localhost:1978/api/expense/${userid}`, JSON.stringify(oExpense), options)
-        //     .map((response: Response) => response.json())
-        //     .catch(this.handleError);
+        return this.http.post(`http://localhost:1978/api/expense/${userid}`, JSON.stringify(oExpense), options)
+            .map((response: Response) => response.json())
+            .catch(this.handleError);
 
-      return this.http.post(`/api/expense/${userid}`, JSON.stringify(oExpense), options)
-        .map((response: Response) => response.json())
-        .catch(this.handleError);
+    //   return this.http.post(`/api/expense/${userid}`, JSON.stringify(oExpense), options)
+    //     .map((response: Response) => response.json())
+    //     .catch(this.handleError);
     }
 
     getExpenses(userid, oExpense) {

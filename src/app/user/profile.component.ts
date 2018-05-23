@@ -15,19 +15,22 @@ export class ProfileComponent implements OnInit {
   profileForm: FormGroup
   userObj: any;
   user: IUser;
-  
-  constructor(private fb: FormBuilder, 
+
+  constructor(private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService) {
   }
 
+  // tslint:disable-next-line:member-ordering
   firstname = new FormControl('', [Validators.required]);
+  // tslint:disable-next-line:member-ordering
   lastname = new FormControl('', [Validators.required]);
+  // tslint:disable-next-line:member-ordering
   email = new FormControl('', [Validators.email]);
 
-  ngOnInit(){
+  ngOnInit() {
     this.userObj =  this.authService.currentUser;
     this.profileForm = this.fb.group({
       firstname: this.firstname,
@@ -37,7 +40,7 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUser(this.userObj.userid).subscribe(data => {
       if (data.success === false) {
-        if (data.errcode){
+        if (data.errcode) {
           this.authService.logout();
           this.router.navigate(['login']);
         }
@@ -57,19 +60,19 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  updateUser(formdata:any): void {
+  updateUser(formdata: any): void {
     if (this.profileForm.dirty && this.profileForm.valid) {
       this.userService.updateUser(this.userObj.userid, this.profileForm.value)
         .subscribe(data => {
           if (data.success === false) {
-            if (data.errcode){
+            if (data.errcode) {
               this.authService.logout();
               this.router.navigate(['login']);
             }
             this.toastr.error(data.message);
           } else {
             this.toastr.success(data.message);
-            let theUser:any = JSON.parse(localStorage.getItem('currentUser'));
+            const theUser: any = JSON.parse(localStorage.getItem('currentUser'));
             theUser.user.firstname = this.profileForm.value.firstname;
             localStorage.setItem('currentUser', JSON.stringify(theUser));
           }

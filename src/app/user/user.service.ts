@@ -22,8 +22,8 @@ export class UserService {
         let headers = new Headers ({ 'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
          //CHANGE IN DEVELOPMENT MODE TO LOCALHOST !!!!!
-        // return this.http.post('http://localhost:1978/register', JSON.stringify(oUser), options)
-      return this.http.post('/register', JSON.stringify(oUser), options)
+        return this.http.post('http://localhost:1978/register', JSON.stringify(oUser), options)
+      // return this.http.post('/register', JSON.stringify(oUser), options)
             .map((response: Response) => response.json())
             .catch(this.handleError);
     }

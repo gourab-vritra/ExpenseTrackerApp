@@ -33,8 +33,8 @@ export class AuthService {
         let headers = new Headers({ 'Content-Type': 'application/json'});
         let options = new RequestOptions({headers: headers});
                                //CHANGE IN DEVELOPMENT MODE TO LOCALHOST!!!!
-        // return this.http.post('http://localhost:1978/api/login', JSON.stringify(oUser), options)
-      return this.http.post('/api/login', JSON.stringify(oUser), options)
+        return this.http.post('http://localhost:1978/api/login', JSON.stringify(oUser), options)
+      // return this.http.post('/api/login', JSON.stringify(oUser), options)
         .do((response: Response) => {
             if (response.json().success) {
                 this.currentUser = <IUser>response.json().message;
