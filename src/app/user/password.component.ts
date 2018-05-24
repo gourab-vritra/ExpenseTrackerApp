@@ -6,8 +6,8 @@ import { UserService } from '../user/user.service';
 import { AuthService } from '../user/auth.service';
 
 function comparePassword(c: AbstractControl): {[key: string]: boolean} | null {
-    let passwordControl = c.get('password');
-    let confirmControl = c.get('retypepass');
+    const passwordControl = c.get('password');
+    const confirmControl = c.get('retypepass');
 
     if (passwordControl.pristine || confirmControl.pristine) {
       return null;
@@ -28,18 +28,17 @@ export class PasswordComponent implements OnInit {
   passwordForm: FormGroup;
   userObj: any;
 
-  constructor(private fb: FormBuilder, 
+  constructor(private fb: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
     private router: Router,
     private toastr: ToastrService) {
   }
-  
   oldpassword = new FormControl('', [Validators.required]);
   password = new FormControl('', [Validators.required, Validators.pattern('^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,12}$')]);
   retypepass = new FormControl('', [Validators.required]);
 
-  ngOnInit(){
+  ngOnInit() {
     this.userObj =  this.authService.currentUser;
     this.passwordForm = this.fb.group({
       oldpassword: this.oldpassword,
@@ -50,17 +49,17 @@ export class PasswordComponent implements OnInit {
     });
   }
 
-  updatePassword(formdata:any): void {
+  updatePassword(formdata: any): void {
     if (this.passwordForm.dirty && this.passwordForm.valid) {
-      let theForm = this.passwordForm.value;
+      const theForm = this.passwordForm.value;
       const thePass = this.passwordForm.value.passwordGroup.password;
       theForm.password = thePass;
       delete theForm.passwordGroup;
 
-      this.userService.updatePassword(this.userObj.userid,theForm)
+      this.userService.updatePassword(this.userObj.userid, theForm)
         .subscribe(data => {
           if (data.success === false) {
-            if (data.errcode){
+            if (data.errcode) {
               this.authService.logout();
               this.router.navigate(['login']);
             }
@@ -72,5 +71,5 @@ export class PasswordComponent implements OnInit {
       });
     }
   }
-  
+
 }
